@@ -1,6 +1,6 @@
 package arrays;
 
-import main.java.bean.ListNode;
+import bean.ListNode;
 
 import java.util.ArrayList;
 import java.util.List;

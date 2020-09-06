@@ -1,7 +1,7 @@
-package main.java.bean;
+package bean;
 
 public class QuadTreeNode {
-    
+
 	public boolean val;
     public boolean isLeaf;
     public QuadTreeNode topLeft;
