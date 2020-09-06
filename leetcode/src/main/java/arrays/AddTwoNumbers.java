@@ -18,47 +18,55 @@ import java.util.List;
  */
 public class AddTwoNumbers {
 
+	/**
+	 * Runtime: 9 ms, faster than 5.76% of Java online submissions for Add Two Numbers.
+	 * Memory Usage: 45.4 MB, less than 9.02% of Java online submissions for Add Two Numbers.
+	 * @param l1
+	 * @param l2
+	 * @return
+	 */
 	public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
 
-		List<Integer> sumList1 = new ArrayList<Integer>();
-		List<Integer> sumList2 = new ArrayList<Integer>();
+		List<Integer> sumList = new ArrayList<Integer>();
 		ListNode node1 = l1;
 		ListNode node2 = l2;
 		while (null != node1) {
-			sumList1.add(0, node1.val);
+			sumList.add(node1.val);
 			node1 = node1.next;
 		}
+		int size = sumList.size();
+		int index = 0;
 		while (null != node2) {
-			sumList2.add(0, node2.val);
+			if (index < size) {
+				sumList.set(index, sumList.get(index) + node2.val);
+				++index;
+			} else {
+				sumList.add(node2.val);
+			}
 			node2 = node2.next;
-		}
-
-		int max = Math.max(sumList1.size(), sumList2.size());
-		List<Integer> sumList = new ArrayList<Integer>(max);
-		for (int i = 0; i < max; ++i) {
-			sumList.add(0, (i > sumList1.size() - 1 ? 0 : sumList1.get(i)) + (i > sumList2.size() - 1 ? 0 : sumList2.get(i)));
 		}
 
 		List<Integer> resList = new ArrayList<Integer>(sumList.size());
 		int over = 0;
-		for (int i = sumList.size() - 1; i > -1; --i) {
-			Integer integer = sumList.get(i);
-			integer += over;
-			if (integer > 9 && i > 0) {
-				over = integer - 9;
-				integer -= 10;
-				resList.add(0, integer);
-			} else if (integer > 9 && i == 0) {
-				resList.add(0, integer - 10);
-				resList.add(0, integer / 10);
+		for (int i = 0; i < sumList.size(); ++i) {
+			Integer integer = sumList.get(i) + over;
+			over = 0;
+			if (integer > 9) {
+				if (i < sumList.size() - 1) {
+					over = integer / 10;
+					resList.add(integer - 10);
+				} else {
+					resList.add(integer - 10);
+					resList.add(integer / 10);
+				}
 			} else {
-				resList.add(0, integer);
+				resList.add(integer);
 			}
 		}
 
-		ListNode sentinel = null;
 		ListNode res = null;
-		for (int i = resList.size() - 1; i > -1; --i) {
+		ListNode sentinel = null;
+		for (int i = 0; i < resList.size() ; ++i) {
 			if (null == sentinel) {
 				sentinel = new ListNode(resList.get(i));
 				res = sentinel;
@@ -73,20 +81,62 @@ public class AddTwoNumbers {
 
 	}
 
+	/**
+	 * Runtime: 2 ms, faster than 71.36% of Java online submissions for Add Two Numbers.
+	 * Memory Usage: 39.3 MB, less than 94.14% of Java online submissions for Add Two Numbers.
+	 * @param l1
+	 * @param l2
+	 * @return
+	 */
+	public ListNode addTwoNumbers2(ListNode l1, ListNode l2) {
+
+		ListNode res = null;
+		ListNode sentinel = null;
+		ListNode n1 = l1;
+		ListNode n2 = l2;
+		int over = 0;
+		while (null != n1 || null != n2) {
+			int sum = (null == n1 ? 0 : n1.val) + (null == n2 ? 0 : n2.val) + over;
+			over = 0;
+			if (sum > 9) {
+				over = sum / 10;
+				sum = sum - 10;
+			}
+			if (null == sentinel) {
+				sentinel = new ListNode(sum);
+				res = sentinel;
+			} else {
+				ListNode listNode = new ListNode(sum);
+				sentinel.next = listNode;
+				sentinel = listNode;
+			}
+			n1 = null == n1 ? null : n1.next;
+			n2 = null == n2 ? null : n2.next;
+		}
+
+		if (over != 0) {
+			ListNode listNode = new ListNode(over);
+			sentinel.next = listNode;
+		}
+
+		return res;
+
+	}
+
 	public static void main(String[] args) {
 
 		ListNode l10 = new ListNode(2);
-		ListNode l11 = new ListNode(8);
-		ListNode l12 = new ListNode(3);
-		l10.next = l11;
-		l11.next = l12;
+//		ListNode l11 = new ListNode(4);
+//		ListNode l12 = new ListNode(3);
+//		l10.next = l11;
+//		l11.next = l12;
 
-		ListNode l20 = new ListNode(5);
-		ListNode l21 = new ListNode(6);
-		ListNode l22 = new ListNode(4);
-		l20.next = l21;
-		l21.next = l22;
+		ListNode l20 = new ListNode(8);
+//		ListNode l21 = new ListNode(6);
+//		ListNode l22 = new ListNode(4);
+//		l20.next = l21;
+//		l21.next = l22;
 
-		System.out.println(new AddTwoNumbers().addTwoNumbers(l10, l20));
+		System.out.println(new AddTwoNumbers().addTwoNumbers2(l10, l20));
 	}
 }
