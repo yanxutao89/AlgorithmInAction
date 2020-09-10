@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import bean.TreeNode;
+import beans.TreeNode;
 import utils.TreeUtils;
 
 /*We run a preorder depth first search on the root of a binary tree.

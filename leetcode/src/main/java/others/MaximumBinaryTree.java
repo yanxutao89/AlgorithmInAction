@@ -1,6 +1,6 @@
 package others;
 
-import bean.TreeNode;
+import beans.TreeNode;
 import utils.TreeUtils;
 
 /*Given an integer array with no duplicates. A maximum tree building on this array is defined as follow:

@@ -1,12 +1,6 @@
 package others;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
-
-import bean.TreeNode;
+import beans.TreeNode;
 import utils.TreeUtils;
 
 /*Given a binary search tree, rearrange the tree in in-order so that the leftmost node in the tree is now the root of the tree, and every node has no left child and only 1 right child.

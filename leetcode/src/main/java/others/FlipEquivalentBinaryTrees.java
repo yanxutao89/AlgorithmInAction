@@ -1,6 +1,6 @@
 package others;
 
-import bean.TreeNode;
+import beans.TreeNode;
 import utils.TreeUtils;
 
 /*For a binary tree T, we can define a flip operation as follows: choose any node, and swap the left and right child subtrees.

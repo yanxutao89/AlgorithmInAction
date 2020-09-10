@@ -1,6 +1,6 @@
 package others;
 
-import bean.TreeNode;
+import beans.TreeNode;
 import utils.TreeUtils;
 
 /*Given a binary tree rooted at root, the depth of each node is the shortest distance to the root.

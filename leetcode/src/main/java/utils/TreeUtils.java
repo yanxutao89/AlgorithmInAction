@@ -3,7 +3,7 @@ package utils;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import bean.TreeNode;
+import beans.TreeNode;
 
 public class TreeUtils {
 

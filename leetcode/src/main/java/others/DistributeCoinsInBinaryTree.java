@@ -2,7 +2,7 @@ package others;
 
 import java.util.Date;
 
-import bean.TreeNode;
+import beans.TreeNode;
 import utils.TreeUtils;
 
 /*

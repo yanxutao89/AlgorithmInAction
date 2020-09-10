@@ -3,7 +3,7 @@ package others;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import bean.TreeNode;
+import beans.TreeNode;
 import utils.TreeUtils;
 
 public class RangeSumOfBST {

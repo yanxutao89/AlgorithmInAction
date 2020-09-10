@@ -1,6 +1,6 @@
 package others;
 
-import bean.TreeNode;
+import beans.TreeNode;
 import utils.TreeUtils;
 
 /**

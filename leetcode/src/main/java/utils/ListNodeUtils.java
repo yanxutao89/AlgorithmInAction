@@ -1,6 +1,6 @@
 package utils;
 
-import bean.ListNode;
+import beans.ListNode;
 
 public class ListNodeUtils {
 

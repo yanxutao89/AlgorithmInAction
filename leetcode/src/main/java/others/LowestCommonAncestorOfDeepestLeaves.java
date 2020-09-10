@@ -1,6 +1,6 @@
 package others;
 
-import bean.TreeNode;
+import beans.TreeNode;
 import utils.TreeUtils;
 
 /*Given a rooted binary tree, return the lowest common ancestor of its deepest leaves.

@@ -1,9 +1,6 @@
 package others;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import bean.TreeNode;
+import beans.TreeNode;
 import utils.TreeUtils;
 
 /*Return any binary tree that matches the given preorder and postorder traversals.

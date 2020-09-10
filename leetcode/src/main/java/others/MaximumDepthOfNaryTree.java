@@ -1,11 +1,10 @@
 package others;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-import bean.Node;
+import beans.Node;
 
 /*Given a n-ary tree, find its maximum depth.
 
