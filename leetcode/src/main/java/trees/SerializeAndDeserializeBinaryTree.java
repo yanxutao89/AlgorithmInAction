@@ -94,100 +94,53 @@ public class SerializeAndDeserializeBinaryTree {
 		return root;
 	}
 
+	/**
+	 * Runtime: 16 ms, faster than 53.06% of Java online submissions for Serialize and Deserialize Binary Tree.
+	 * Memory Usage: 41.2 MB, less than 81.49% of Java online submissions for Serialize and Deserialize Binary Tree.
+	 * @param root
+	 * @return
+	 */
 	// Encodes a tree to a single string.
 	public String serialize2(TreeNode root) {
-
-		StringBuilder sb = new StringBuilder();
-		if (null == root) {
-			return sb.toString();
-		}
-		preOrder2(root, sb);
-		return sb.toString();
-	}
-
-	private void preOrder2(TreeNode root, StringBuilder sb) {
-		if (root == null) {
-			return;
-		}
-
-		sb.append('[').append(root.val);
-		preOrder2(root.left, sb);
-		preOrder2(root.right, sb);
-		sb.append(']');
+		if(root == null)
+			return "()";
+		return "(" + root.val + serialize2(root.left) + serialize2(root.right) + ")";
 	}
 
 	// Decodes your encoded data to tree.
 	public TreeNode deserialize2(String data) {
-		return generateTreeFromPreOrder2(data);
-	}
 
-	private TreeNode generateTreeFromPreOrder2(String data){
-		if (data.length() == 0) {
+		int left = data.indexOf('(');
+		int right = data.lastIndexOf(')');
+
+		if(right - left == 1) {
 			return null;
 		}
-		List<Integer> valIndex = getValIndex(data);
-		if (valIndex.size() == 2) {
-			String val = data.substring(valIndex.get(0) + 1, valIndex.get(1));
-			TreeNode root = new TreeNode(Integer.parseInt(val));
-			String tree = data.substring(valIndex.get(1));
-			List<Integer> indexs = getTreeIndex(tree);
 
-			if (indexs.size() == 4) {
-				root.left = generateTreeFromPreOrder2(tree.substring(indexs.get(0), indexs.get(1)));
-				root.left = generateTreeFromPreOrder2(tree.substring(indexs.get(3), indexs.get(4)));
+		int left2 = data.indexOf('(',left + 1);
+		int val = Integer.parseInt(data.substring(left + 1, left2));
+		int right2 = -1;
+		int level = 0;
+		for(int i = 0 ; i < data.length() ; ++i) {
+			char c = data.charAt(i);
+			if(c == '(') {
+				level++;
+			} else if(c == ')') {
+				level--;
+			} else {
+				continue;
 			}
-			return root;
-		}
-
-		return null;
-	}
-
-	private List<Integer> getTreeIndex(String data){
-		List<Integer> indexs = new ArrayList<>();
-		char[] chars = data.toCharArray();
-		int count = 0;
-		boolean isFirst = true;
-		for (int i = 0; i < chars.length; ++i) {
-			char c = chars[i];
-			if ('[' == c) {
-				if (isFirst) {
-					indexs.add(i);
-					isFirst = false;
-				}
-				count++;
-			} else if (']' == c) {
-				count--;
-			}
-			if (count == 0) {
-				indexs.add(i);
-				isFirst = true;
-				count = 0;
-			}
-		}
-		return indexs;
-	}
-
-	private List<Integer> getValIndex(String data){
-
-		List<Integer> indexs = new ArrayList<>();;
-		char[] chars = data.toCharArray();
-		boolean isFirst = true;
-		for (int i = 0; i < chars.length; ++i) {
-			char c = chars[i];
-			if ('[' == c) {
-				if (isFirst) {
-					isFirst = false;
-					indexs.add(i);
-				} else {
-					indexs.add(i);
-					break;
-				}
-			}  else if (']' == c) {
+			if(c == ')' && level == 1) {
+				right2 = i;
 				break;
 			}
 		}
 
-		return indexs;
+		TreeNode root = new TreeNode(val);
+		root.left = deserialize2(data.substring(left2, right2 + 1));
+		root.right = deserialize2(data.substring(right2 + 1, right));
+
+		return root;
 	}
 
 	public static void main(String[] args) {

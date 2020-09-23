@@ -48,8 +48,8 @@ public class EuclidAlgorithm {
 	}
 
 	public static void main(String[] args) {
-		int m = 2166;
-		int n = 6099;
+		int m = 1769;
+		int n = 551;
 		System.out.println(new EuclidAlgorithm().getGreatestCommonDivisor(m, n));
 		System.out.println(new EuclidAlgorithm().getGreatestCommonDivisor2(m, n));
 	}
