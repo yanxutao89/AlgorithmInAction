@@ -29,13 +29,38 @@ package arrays;
  */
 public class TeemoAttacking {
 
+    /**
+     * Runtime: 1 ms, faster than 100.00% of Java online submissions for Teemo Attacking.
+     * Memory Usage: 41.8 MB, less than 95.08% of Java online submissions for Teemo Attacking.
+     * @param timeSeries
+     * @param duration
+     * @return
+     */
     public int findPoisonedDuration(int[] timeSeries, int duration) {
 
-        return 0;
+        if (timeSeries.length == 0 || duration == 0) {
+            return 0;
+        }
+        if (timeSeries.length == 1) {
+            return duration;
+        }
+
+        int res = 0;
+        for (int i = 0; i < timeSeries.length - 1; ++i) {
+            int period = timeSeries[i + 1] - timeSeries[i];
+            if (period > duration) {
+                res += duration;
+            } else {
+                res += period;
+            }
+        }
+
+        return res + duration;
+
     }
 
     public static void main(String[] args) {
-        int[] timeSeries = {1, 4};
+        int[] timeSeries = {1, 2};
         int duration = 2;
         System.out.println(new TeemoAttacking().findPoisonedDuration(timeSeries, duration));
     }
