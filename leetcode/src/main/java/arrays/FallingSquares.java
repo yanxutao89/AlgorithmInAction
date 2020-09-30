@@ -47,16 +47,41 @@ import java.util.List;
  */
 public class FallingSquares {
 
+	/**
+	 * Runtime: 52 ms, faster than 16.10% of Java online submissions for Falling Squares.
+	 * Memory Usage: 40 MB, less than 86.44% of Java online submissions for Falling Squares.
+	 * @param positions
+	 * @return
+	 */
 	public List<Integer> fallingSquares(int[][] positions) {
 
-		List<Integer> list = new ArrayList<>();
-		int currHeight = 0;
-		for (int[] position : positions) {
+		List<Integer> res = new ArrayList<>();
+		List<long[]> list = new ArrayList<>();
+		list.add(new long[]{0, Integer.MAX_VALUE, 0});
+		long max = 0;
 
-			list.add(position[1]);
+		for(int i = 0; i < positions.length; ++i){
+			int position[] = positions[i];
+			long len = position[1];
+			long l = position[0];
+			long r = l + len - 1;
+			long h = 0;
+
+			for(long[] pos : list){
+				if(pos[0] > r) {
+					continue;
+				}
+				if(pos[1] < l) {
+					continue;
+				}
+				h = Math.max(h, pos[2] + len);
+			}
+			list.add(new long[]{l, r, h});
+			max = Math.max(max, h);
+			res.add((int) max);
 		}
 
-		return list;
+		return res;
 
 	}
 
