@@ -85,8 +85,82 @@ public class FallingSquares {
 
 	}
 
+	/**
+	 * Runtime: 15 ms, faster than 93.64% of Java online submissions for Falling Squares.
+	 * Memory Usage: 42.5 MB, less than 7.63% of Java online submissions for Falling Squares.
+	 */
+	class Node {
+		int low, high;
+		int val;
+		Node left, right;
+		public Node(int low, int high, int val) {
+			this.low = low;
+			this.high = high;
+			this.val = val;
+		}
+	}
+
+	Node root = new Node(0, 1000_000_10, 0);
+
+	private int query(Node root, int l, int r) {
+		if (l <= root.low && root.high <= r) {
+			return root.val;
+		}
+		int mid = (root.low + root.high) / 2;
+		int res = Integer.MIN_VALUE;
+		if (root.left == null) {
+			root.left = new Node(root.low, mid, root.val);
+		}
+		if (root.right == null) {
+			root.right = new Node(mid + 1, root.high, root.val);
+		}
+		if (l <= mid) {
+			res = Math.max(res, query(root.left, l, r));
+		}
+		if (r > mid) {
+			res = Math.max(res, query(root.right, l, r));
+		}
+		return res;
+	}
+
+	private void update(Node root, int l, int r, int val) {
+		if (l <= root.low && root.high <= r) {
+			root.val = val;
+			root.left = null;
+			root.right = null;
+			return;
+		}
+		int mid = (root.low + root.high) / 2;
+		if (root.left == null) {
+			root.left = new Node(root.low, mid, root.val);
+		}
+		if (root.right == null) {
+			root.right = new Node(mid + 1, root.high, root.val);
+		}
+		if (l <= mid) {
+			update(root.left, l, r, val);
+		}
+		if (r > mid) {
+			update(root.right, l, r, val);
+		}
+		root.val = Math.max(root.left.val, root.right.val);
+	}
+
+	public List<Integer> fallingSquares2(int[][] positions) {
+
+		List<Integer> res = new ArrayList<>();
+		for (int[] p : positions) {
+			int val = query(root, p[0], p[0] + p[1] - 1);
+			update(root, p[0], p[0] + p[1] - 1, p[1] + val);
+			res.add(root.val);
+		}
+		return res;
+
+	}
+
 	public static void main(String[] args) {
 		int[][] positions = {{1, 2}, {2, 3}, {6, 1}};
 		System.out.println(new FallingSquares().fallingSquares(positions));
+		System.out.println(new FallingSquares().fallingSquares2(positions));
 	}
 }
