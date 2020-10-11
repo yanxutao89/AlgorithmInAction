@@ -89,6 +89,19 @@ public class FallingSquares {
 	 * Runtime: 15 ms, faster than 93.64% of Java online submissions for Falling Squares.
 	 * Memory Usage: 42.5 MB, less than 7.63% of Java online submissions for Falling Squares.
 	 */
+	public List<Integer> fallingSquares2(int[][] positions) {
+
+		List<Integer> res = new ArrayList<>();
+		Node root = new Node(0, 1000_000_10, 0);
+		for (int[] p : positions) {
+			int val = query(root, p[0], p[0] + p[1] - 1);
+			update(root, p[0], p[0] + p[1] - 1, p[1] + val);
+			res.add(root.val);
+		}
+		return res;
+
+	}
+
 	class Node {
 		int low, high;
 		int val;
@@ -99,8 +112,6 @@ public class FallingSquares {
 			this.val = val;
 		}
 	}
-
-	Node root = new Node(0, 1000_000_10, 0);
 
 	private int query(Node root, int l, int r) {
 		if (l <= root.low && root.high <= r) {
@@ -144,18 +155,6 @@ public class FallingSquares {
 			update(root.right, l, r, val);
 		}
 		root.val = Math.max(root.left.val, root.right.val);
-	}
-
-	public List<Integer> fallingSquares2(int[][] positions) {
-
-		List<Integer> res = new ArrayList<>();
-		for (int[] p : positions) {
-			int val = query(root, p[0], p[0] + p[1] - 1);
-			update(root, p[0], p[0] + p[1] - 1, p[1] + val);
-			res.add(root.val);
-		}
-		return res;
-
 	}
 
 	public static void main(String[] args) {
