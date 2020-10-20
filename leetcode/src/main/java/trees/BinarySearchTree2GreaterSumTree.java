@@ -1,4 +1,4 @@
-package others;
+package trees;
 
 import beans.TreeNode;
 import utils.TreeUtils;
@@ -33,26 +33,25 @@ public class BinarySearchTree2GreaterSumTree {
 	 * Memory Usage: 34.3 MB, less than 100.00% of Java online submissions for Binary Search Tree to Greater Sum
 	 */
 	static int val = 0;
-
     public static TreeNode bstToGst(TreeNode root) {
 
     	if (val != 0) {
     		val = 0;
     	}
         recursive(root);
-
         return root;
+
     }
 
     public static void recursive(TreeNode root) {
-
-    	if(root != null) {
-    		recursive(root.right);
-    		root.val += val;
-    		val = root.val;
-    		recursive(root.left);
+    	if(root == null) {
+    		return ;
     	}
-    }
+		recursive(root.right);
+		root.val += val;
+		val = root.val;
+		recursive(root.left);
+	}
 
     /**
      * Runtime: 0 ms, faster than 100.00% of Java online submissions for Binary Search Tree to Greater Sum Tree.
@@ -62,28 +61,23 @@ public class BinarySearchTree2GreaterSumTree {
     public static TreeNode bstToGst2(TreeNode root) {
 
         recursive2(root, 0);
-
         return root;
+
     }
 
     private static int recursive2(TreeNode root, Integer val) {
-
     	if (root == null) {
-
     		return val;
     	}
-
-    	root.val = root.val + recursive2(root.right, val);
-
+    	root.val += recursive2(root.right, val);
     	return recursive2(root.left, root.val);
     }
 
     public static void main(String[] args) {
 
     	String input = "[4,1,6,0,2,5,7,null,null,null,3,null,null,null,8]";
-
     	TreeNode root = TreeUtils.stringToTreeNode(input);
-
+    	System.out.println(TreeUtils.treeNodeToString(bstToGst(root)));
     	System.out.println(TreeUtils.treeNodeToString(bstToGst2(root)));
     }
 }
