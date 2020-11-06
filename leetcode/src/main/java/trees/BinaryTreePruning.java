@@ -33,9 +33,11 @@ import utils.TreeUtils;
  */
 public class BinaryTreePruning {
 
-	/*
+	/**
 	 * Runtime: 0 ms, faster than 100.00% of Java online submissions for Binary Tree Pruning.
-	 * Memory Usage: 34.3 MB, less than 100.00% of Java online submissions for Binary Tree Pruning.
+	 * Memory Usage: 36.6 MB, less than 8.85% of Java online submissions for Binary Tree Pruning.
+	 * @param root
+	 * @return
 	 */
 	public TreeNode pruneTree(TreeNode root) {
 
@@ -54,7 +56,7 @@ public class BinaryTreePruning {
 		pruneTree(root.left);
 		pruneTree(root.right);
 
-		return root;
+		return containsOne(root) ? root : null;
 
     }
 
