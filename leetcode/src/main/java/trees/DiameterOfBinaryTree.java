@@ -22,36 +22,28 @@ import utils.TreeUtils;
  */
 public class DiameterOfBinaryTree {
 
+	/**
+	 * Runtime: 0 ms, faster than 100.00% of Java online submissions for Diameter of Binary Tree.
+	 * Memory Usage: 39.5 MB, less than 8.77% of Java online submissions for Diameter of Binary Tree.
+	 */
+	int ans = 1;
 	public int diameterOfBinaryTree(TreeNode root) {
-
-		if (null == root) {
-			return 0;
-		}
-		int ld = getDepth(root.left);
-		int rd = getDepth(root.right);
-		if (0 != ld && 0 != rd) {
-			return 1 + ld + rd;
-		} else {
-			return ld + rd;
-		}
+		dfs(root);
+		return ans - 1;
 	}
 
-	private int getDepth(TreeNode node) {
-
-		int depth = 0;
-		if (null == node) {
-			return depth;
-		} else {
-			depth++;
+	public int dfs(TreeNode root){
+		if(null == root) {
+			return 0;
 		}
-		getDepth(node.left);
-		getDepth(node.right);
-
-		return depth;
+		int ld = dfs(root.left);
+		int rd = dfs(root.right);
+		ans = Math.max(ans, 1 + ld + rd);
+		return 1 + Math.max(ld, rd);
 	}
 
 	public static void main(String[] args) {
-		String input = ",1,2,3,4,5,null,null,";
+		String input = ",2,3,null,1,";
 		System.out.println(new DiameterOfBinaryTree().diameterOfBinaryTree(TreeUtils.stringToTreeNode(input)));
 	}
 }

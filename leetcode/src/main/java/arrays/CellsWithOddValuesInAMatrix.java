@@ -1,6 +1,4 @@
-package others;
-
-import java.util.Arrays;
+package arrays;
 
 /**
  * Given n and m which are the dimensions of a matrix initialized by zeros and given an array indices where indices[i] = [ri, ci]. For each pair of [ri, ci] you have to increment all cells in row ri and column ci by 1.
@@ -50,22 +48,23 @@ public class CellsWithOddValuesInAMatrix {
     	int count = 0;
     	int[] arr = new int[n * m];
 
-    	for (int i = 0; i < indices.length; i++) {
+    	for (int i = 0; i < indices.length; ++i) {
     		int row = indices[i][0];
     		int col = indices[i][1];
-    		for (int j = 0; j < m; j++) {
+    		for (int j = 0; j < m; ++j) {
     			arr[row * m + j]++;
     		}
-    		for (int j = 0; j < n; j++) {
+    		for (int j = 0; j < n; ++j) {
     			arr[col + m * j]++;
     		}
     	}
 
     	for (int i : arr) {
-    		count += (i & 1) == 1 ? 1 : 0;
+    		count += 0 == (i & 1) ? 0 : 1;
     	}
 
     	return count;
+
     }
 
     public static void main(String[] args) {
