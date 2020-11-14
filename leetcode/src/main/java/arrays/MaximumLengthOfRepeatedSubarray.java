@@ -2,6 +2,7 @@ package arrays;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -23,57 +24,44 @@ import java.util.Set;
  */
 public class MaximumLengthOfRepeatedSubarray {
 
+    /**
+     * Runtime: 2372 ms, faster than 5.03% of Java online submissions for Maximum Length of Repeated Subarray.
+     * Memory Usage: 38.9 MB, less than 93.04% of Java online submissions for Maximum Length of Repeated Subarray.
+     * @param A
+     * @param B
+     * @return
+     */
     public int findLength(int[] A, int[] B) {
 
-        int maxLenA = -1;
-        int maxLenB = -1;
-        int maxLenC = -1;
-        int currLen = 0;
-        int a = 0;
-        int b = 0;
+        int maxLen = 0;
+        int lenA = A.length;
+        int lenB = B.length;
 
-        while (a < A.length && b < B.length) {
-            if (A[a] == B[b]) {
-                currLen++;
-                a++;
-                b++;
-            } else {
-                currLen = 0;
-                a++;
+        for (int i = 0; i < lenA && lenA - i > maxLen; ++i) {
+            for (int j = 0; j < lenB && lenB - j > maxLen; ++j) {
+                if (A[i] == B[j]) {
+                    int a = i;
+                    int b = j;
+                    int currLen = 0;
+                    while (a < lenA && b < lenB) {
+                        if (A[a] == B[b]) {
+                            a++;
+                            b++;
+                            currLen++;
+                        } else {
+                            if (lenA - a <= maxLen || lenB - b <= maxLen) {
+                                break;
+                            }
+                            b++;
+                            currLen = 0;
+                        }
+                        maxLen = Math.max(maxLen, currLen);
+                    }
+                }
             }
-            maxLenA = Math.max(maxLenA, currLen);
         }
 
-        currLen = 0;
-        a = 0;
-        b = 0;
-        while (a < A.length && b < B.length) {
-            if (A[a] == B[b]) {
-                currLen++;
-                a++;
-                b++;
-            } else {
-                currLen = 0;
-                b++;
-            }
-            maxLenB = Math.max(maxLenB, currLen);
-        }
-
-        currLen = 0;
-        a = 0;
-        b = 0;
-        while (a < A.length && b < B.length) {
-            if (A[a] == B[b]) {
-                currLen++;
-            } else {
-                currLen = 0;
-            }
-            maxLenC = Math.max(maxLenC, currLen);
-            a++;
-            b++;
-        }
-
-        return Math.max(Math.max(maxLenA, maxLenB), maxLenC);
+        return maxLen;
 
     }
 
