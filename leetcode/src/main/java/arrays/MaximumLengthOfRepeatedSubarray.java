@@ -65,6 +65,32 @@ public class MaximumLengthOfRepeatedSubarray {
 
     }
 
+    /**
+     * Runtime: 90 ms, faster than 18.74% of Java online submissions for Maximum Length of Repeated Subarray.
+     * Memory Usage: 47.8 MB, less than 68.08% of Java online submissions for Maximum Length of Repeated Subarray.
+     * @param A
+     * @param B
+     * @return
+     */
+    public int findLength2(int[] A, int[] B) {
+        int rows = A.length, cols = B.length;
+        int[][] dp = new int[rows][cols];
+
+        int max = 0;
+        for(int i = 0; i < rows; ++i){
+            for(int j = 0; j < cols; ++j){
+                if(i - 1 >= 0 && j - 1 >= 0 && A[i] == B[j] && A[i - 1] == B[j - 1]){
+                    dp[i][j] = dp[i - 1][j - 1] + 1;
+                } else if(A[i] == B[j]){
+                    dp[i][j] = 1;
+                }
+                max = Math.max(max, dp[i][j]);
+            }
+        }
+
+        return max;
+    }
+
     public static void main(String[] args) {
         int[] A = {0, 0, 0, 0, 1};
         int[] B = {1, 0, 0, 0, 0};
