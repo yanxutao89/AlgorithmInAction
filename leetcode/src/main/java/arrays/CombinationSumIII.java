@@ -1,5 +1,7 @@
 package arrays;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -46,10 +48,34 @@ import java.util.List;
  */
 public class CombinationSumIII {
 
+    /**
+     * Runtime: 0 ms, faster than 100.00% of Java online submissions for Combination Sum III.
+     * Memory Usage: 36.8 MB, less than 44.89% of Java online submissions for Combination Sum III.
+     * @param k
+     * @param n
+     * @return
+     */
     public List<List<Integer>> combinationSum3(int k, int n) {
+        if (n > 45 || k <= 0) {
+            return Collections.emptyList();
+        }
+        List<List<Integer>> res = new ArrayList<>();
+        dfs(res, k, n, 1, new ArrayList<>());
+        return res;
+    }
 
-
-        return null;
+    private void dfs(List<List<Integer>> res, int k, int n, int p, List<Integer> path) {
+        if (n == 0 || k <= 0 || p >= 10) {
+            if (n == 0 && k == 0) {
+                res.add(new ArrayList<>(path));
+            }
+            return;
+        }
+        for (int i = p; i <= 9 && i <= n; ++i) {
+            path.add(i);
+            dfs(res, k - 1, n - i, i + 1, path);
+            path.remove(path.size() - 1);
+        }
     }
 
     public static void main(String[] args) {
