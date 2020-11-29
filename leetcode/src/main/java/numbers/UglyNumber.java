@@ -1,4 +1,4 @@
-package arrays;
+package numbers;
 
 /**
  * Write a program to check whether a given number is an ugly number.
@@ -30,10 +30,34 @@ package arrays;
  */
 public class UglyNumber {
 
+	/**
+	 * Runtime: 1 ms, faster than 100.00% of Java online submissions for Ugly Number.
+	 * Memory Usage: 36.5 MB, less than 5.76% of Java online submissions for Ugly Number.
+	 * @param num
+	 * @return
+	 */
 	public boolean isUgly(int num) {
 
+		if (num < 1) {
+			return false;
+		}
+		if (num == 1) {
+			return true;
+		}
 
-		return false;
+		while (num % 2 ==0) {
+			num /= 2;
+		}
+
+		while (num % 3 ==0) {
+			num /= 3;
+		}
+
+		while (num % 5 ==0) {
+			num /= 5;
+		}
+
+		return num == 1;
 
 	}
 
