@@ -3,6 +3,9 @@ package trees;
 import beans.TreeNode;
 import utils.TreeUtils;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  * Given a binary tree, find its minimum depth.
  * The minimum depth is the number of nodes along the shortest path from the root node down to the nearest leaf node.
@@ -25,9 +28,36 @@ import utils.TreeUtils;
  */
 public class MinimumDepthOfBinaryTree {
 
+    /**
+     * Runtime: 0 ms, faster than 100.00% of Java online submissions for Minimum Depth of Binary Tree.
+     * Memory Usage: 59.1 MB, less than 64.92% of Java online submissions for Minimum Depth of Binary Tree.
+     * @param root
+     * @return
+     */
     public int minDepth(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int depth = 1;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
 
-        return 0;
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for (int i = 0; i < size; ++i) {
+                TreeNode node = queue.poll();
+                if (node != null) {
+                    if (node.left == null && node.right == null) {
+                        return depth;
+                    }
+                    queue.add(node.left);
+                    queue.add(node.right);
+                }
+            }
+            depth++;
+        }
+
+        return depth;
     }
 
     public static void main(String[] args) {
