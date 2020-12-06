@@ -38,35 +38,41 @@ package arrays;
 public class ContainerWithMostWater {
 
     /**
-     * Runtime: 672 ms, faster than 11.11% of Java online submissions for Container With Most Water.
-     * Memory Usage: 40.4 MB, less than 60.42% of Java online submissions for Container With Most Water.
+     * Runtime: 666 ms, faster than 13.47% of Java online submissions for Container With Most Water.
+     * Memory Usage: 41 MB, less than 9.64% of Java online submissions for Container With Most Water.
      * @param height
      * @return
      */
     public static int maxArea(int[] height) {
         int max = 0;
-        for(int i = 0; i < height.length - 1; ++i){
-            for(int j = i + 1; j < height.length; ++j){
+        int len = height.length;
+        for(int i = 0; i < len - 1; ++i){
+            for(int j = i + 1; j < len; ++j){
                 max = Math.max(max, Math.min(height[i], height[j]) * (j - i));
             }
-
         }
         return max;
     }
 
+    /**
+     * Runtime: 2 ms, faster than 94.49% of Java online submissions for Container With Most Water.
+     * Memory Usage: 40.1 MB, less than 94.70% of Java online submissions for Container With Most Water.
+     * @param height
+     * @return
+     */
     public static int maxArea2(int[] height) {
-        int len = height.length;
-        int[] dp = new int[len];
-        if (len < 2) {
-            return 0;
+        int max = 0;
+        int l = 0;
+        int r = height.length - 1;
+        while (l < r) {
+            max = Math.max(max, Math.min(height[l], height[r]) * (r - l));
+            if (height[l] < height[r]) {
+                l++;
+            } else {
+                r--;
+            }
         }
-        if (len == 2) {
-            return Math.min(height[0], height[1]);
-        }
-        for (int i = 3; i < len; ++i) {
-
-        }
-        return dp[len - 1];
+        return max;
     }
 
     public static void main(String[] args){
