@@ -1,5 +1,8 @@
 package arrays;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.
  *
@@ -24,7 +27,29 @@ public class TrappingRainWater {
 
     public int trap(int[] height) {
 
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < height.length; ++i) {
+            int size = list.size();
+            if ((size & 1) == 0) {
+                if (size == 0) {
+                    if (height[i] > 0 ) {
+                        list.add(i);
+                    }
+                } else {
+                    if (height[i] < height[list.get(size - 1)]) {
+                        list.add(i - 1);
+                    }
+                }
+            } else {
+                if (height[i] > height[list.get(size - 1)]) {
+                    list.add(i);
+                }
+            }
+        }
+        System.out.println(list);
+
         return 0;
+
     }
 
     public static void main(String[] args) {
