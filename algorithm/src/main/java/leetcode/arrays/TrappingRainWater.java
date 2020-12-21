@@ -1,4 +1,4 @@
-package arrays;
+package leetcode.arrays;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,32 +28,54 @@ public class TrappingRainWater {
     public int trap(int[] height) {
 
         List<Integer> list = new ArrayList<>();
-        for (int i = 0; i < height.length; ++i) {
-            int size = list.size();
-            if ((size & 1) == 0) {
-                if (size == 0) {
-                    if (height[i] > 0 ) {
-                        list.add(i);
-                    }
-                } else {
-                    if (height[i] < height[list.get(size - 1)]) {
-                        list.add(i - 1);
-                    }
-                }
+        int start = 1;
+        for (int i = 0; i < height.length - 1; ) {
+            int nextStart = find(height, start, list);
+            if(nextStart != -1) {
+                i = nextStart;
+                start = nextStart;
             } else {
-                if (height[i] > height[list.get(size - 1)]) {
-                    list.add(i);
-                }
+                list.remove(list.size() - 1);
+                i++;
+                start = i;
             }
         }
+
+        int water = 0;
+        for (int i = 0; i < list.size() - 1; ++i) {
+            int min = Math.min(height[list.get(i)], height[list.get(i + 1)]);
+            for (int j = list.get(i) + 1; j < list.get(i + 1); ++j) {
+                water += (min - height[j]);
+            }
+        }
+
         System.out.println(list);
 
-        return 0;
+        return water;
 
     }
 
+    private int find(int[] height, int start, List<Integer> list) {
+
+        for (int i = start; i < height.length; ++i) {
+            if ((list.size() & 1) == 0) {
+                if (height[i] < height[i - 1]) {
+                    list.add(i - 1);
+                }
+            } else {
+                Integer left = list.get(list.size() - 1);
+                if (height[i] >= height[left]) {
+                    list.add(i);
+                    return i;
+                }
+            }
+        }
+
+        return -1;
+    }
+
     public static void main(String[] args) {
-        int[] height = {0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1};
+        int[] height = {4, 2, 3};
         System.out.println(new TrappingRainWater().trap(height));
     }
 }
