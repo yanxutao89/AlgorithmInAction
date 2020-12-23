@@ -1,7 +1,6 @@
 package leetcode.arrays;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.
@@ -27,17 +26,22 @@ public class TrappingRainWater {
 
     public int trap(int[] height) {
 
+        Set<Integer> points = new TreeSet<>();
+        possiblePoints(height, points);
+        if (points.size() == 0) {
+            return 0;
+        }
+
         List<Integer> list = new ArrayList<>();
-        int start = 1;
-        for (int i = 0; i < height.length - 1; ) {
-            int nextStart = find(height, start, list);
-            if(nextStart != -1) {
-                i = nextStart;
-                start = nextStart;
-            } else {
-                list.remove(list.size() - 1);
-                i++;
-                start = i;
+        for (int point : points) {
+            refinePoints(height, point, list);
+        }
+
+        if (list.size() > 2) {
+            int adjoining;
+            while ((adjoining = isAdjoining(height, list)) != -1) {
+                list.remove(adjoining);
+                list.remove(adjoining);
             }
         }
 
@@ -45,7 +49,7 @@ public class TrappingRainWater {
         for (int i = 0; i < list.size() - 1; ++i) {
             int min = Math.min(height[list.get(i)], height[list.get(i + 1)]);
             for (int j = list.get(i) + 1; j < list.get(i + 1); ++j) {
-                water += (min - height[j]);
+                water += (min > height[j] ? min - height[j] : 0);
             }
         }
 
@@ -55,19 +59,51 @@ public class TrappingRainWater {
 
     }
 
-    private int find(int[] height, int start, List<Integer> list) {
+    private void possiblePoints(int[] height, Set<Integer> set) {
+        for (int i = 1; i < height.length - 1; ++i) {
+            if (height[i] < height[i - 1] && height[i] < height[i + 1]) {
+                set.add(i);
+            }
+        }
+        for (int i = 1; i < height.length - 2; ++i) {
+            if (height[i] == height[i + 1]) {
+                if (height[i - 1] > height[i] || height[i + 2] > height[i + 1]) {
+                    set.add(i);
+                }
+            }
+        }
+    }
 
-        for (int i = start; i < height.length; ++i) {
-            if ((list.size() & 1) == 0) {
-                if (height[i] < height[i - 1]) {
-                    list.add(i - 1);
-                }
-            } else {
-                Integer left = list.get(list.size() - 1);
-                if (height[i] >= height[left]) {
-                    list.add(i);
-                    return i;
-                }
+    private void refinePoints(int[] height, int point, List<Integer> list) {
+
+        int i = point;
+        for ( ; i > 0; --i) {
+            if (height[i - 1] < height[i]) {
+                list.add(i);
+                break;
+            }
+        }
+        if (i == 0) {
+            list.add(i);
+        }
+
+        for (i = point; i < height.length - 1; ++i) {
+            if (height[i + 1] < height[i]) {
+                list.add(i);
+                break;
+            }
+        }
+        if (i == height.length - 1) {
+            list.add(i);
+        }
+
+    }
+
+    private int isAdjoining(int[] height, List<Integer> list) {
+        for (int i = 1; i < list.size() - 2; ++i) {
+            int max = Math.max(height[list.get(i)], height[list.get(i + 1)]);
+            if (height[list.get(i - 1)] >= max && height[list.get(i + 2)] >= max) {
+                return i;
             }
         }
 
@@ -75,7 +111,7 @@ public class TrappingRainWater {
     }
 
     public static void main(String[] args) {
-        int[] height = {4, 2, 3};
+        int[] height = {4,2,0,3,2,5};
         System.out.println(new TrappingRainWater().trap(height));
     }
 }
