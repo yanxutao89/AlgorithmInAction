@@ -1,11 +1,11 @@
-package others;
+package leetcode.others;
 
-import utils.ListNodeUtils;
+import leetcode.utils.ListNodeUtils;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import beans.ListNode;
+import leetcode.beans.ListNode;
 
 /*Given a non-empty, singly linked list with head node head, return a middle node of linked list.
 

@@ -1,6 +1,6 @@
-package utils;
+package leetcode.utils;
 
-import beans.ListNode;
+import leetcode.beans.ListNode;
 
 public class ListNodeUtils {
 

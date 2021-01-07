@@ -1,6 +1,6 @@
-package arrays;
+package leetcode.arrays;
 
-import beans.ListNode;
+import leetcode.beans.ListNode;
 
 import java.util.ArrayList;
 import java.util.List;
