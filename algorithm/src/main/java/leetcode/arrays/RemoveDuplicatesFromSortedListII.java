@@ -3,6 +3,9 @@ package leetcode.arrays;
 import leetcode.beans.ListNode;
 import leetcode.utils.ListNodeUtils;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 /**
  * Given the head of a sorted linked list, delete all nodes that have duplicate numbers, leaving only distinct numbers from the original list. Return the linked list sorted as well.
  *
@@ -31,29 +34,34 @@ import leetcode.utils.ListNodeUtils;
  */
 public class RemoveDuplicatesFromSortedListII {
 
+	/**
+	 * Runtime: 2 ms, faster than 9.33% of Java online submissions for Remove Duplicates from Sorted List II.
+	 * Memory Usage: 38.5 MB, less than 36.96% of Java online submissions for Remove Duplicates from Sorted List II.
+	 * @param head
+	 * @return
+	 */
 	public ListNode deleteDuplicates(ListNode head) {
-
+		ListNode res = null;
 		ListNode node = null;
-		int curr = -101;
+		Map<Integer, Integer> count = new LinkedHashMap<>();
 		while (head != null) {
-			if (head.val == curr) {
-				if (node == null) {
-					node = head;
-				} else {
-					node.next = head;
-				}
-			} else {
-				if (node == null) {
-					node = head;
-				} else {
-					node.next = head;
-				}
-			}
-			curr = head.val;
+			count.put(head.val, count.getOrDefault(head.val, 0) + 1);
 			head = head.next;
 		}
 
-		return node;
+		for (Map.Entry<Integer, Integer> entry : count.entrySet()) {
+			if (1 == entry.getValue()) {
+				if (node == null) {
+					node = new ListNode(entry.getKey());
+				} else {
+					node.next = new ListNode(entry.getKey());
+				}
+				res = res == null ? node : res;
+				node = node.next == null ? node : node.next;
+			}
+		}
+
+		return res;
 	}
 
 	public static void main(String[] args) {
