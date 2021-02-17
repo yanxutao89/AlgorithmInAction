@@ -14,11 +14,24 @@ public class RadixSort implements Sort {
         if (array == null) {
             throw new Exception("Parameter 'array' must not be null");
         }
-        return sort(array, 0, array.length);
+        return sort(array, 0, array.length, true);
+    }
+
+    @Override
+    public int[] sort(int[] array, boolean isAsc) throws Exception {
+        if (array == null) {
+            throw new Exception("Parameter 'array' must not be null");
+        }
+        return sort(array, 0, array.length, isAsc);
     }
 
     @Override
     public int[] sort(int[] array, int offset, int length) throws Exception {
+        return sort(array, offset, length, true);
+    }
+
+    @Override
+    public int[] sort(int[] array, int offset, int length, boolean isAsc) throws Exception {
         checkRange(array, offset, length);
         int[] arr = Arrays.copyOf(array, array.length);
         int len = offset + length;
@@ -57,7 +70,6 @@ public class RadixSort implements Sort {
         int dev = 1;
 
         for (int i = 0; i < maxDigit; i++, dev *= 10, mod *= 10) {
-            // 考虑负数的情况，这里扩展一倍队列数，其中 [0-9]对应负数，[10-19]对应正数 (bucket + 10)
             int[][] counter = new int[mod * 2][0];
 
             for (int j = 0; j < arr.length; j++) {

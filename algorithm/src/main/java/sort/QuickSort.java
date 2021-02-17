@@ -14,32 +14,52 @@ public class QuickSort implements Sort {
         if (array == null) {
             throw new Exception("Parameter 'array' must not be null");
         }
-        return sort(array, 0, array.length);
+        return sort(array, 0, array.length, true);
+    }
+
+    @Override
+    public int[] sort(int[] array, boolean isAsc) throws Exception {
+        if (array == null) {
+            throw new Exception("Parameter 'array' must not be null");
+        }
+        return sort(array, 0, array.length, isAsc);
     }
 
     @Override
     public int[] sort(int[] array, int offset, int length) throws Exception {
+        return sort(array, offset, length, true);
+    }
+
+    @Override
+    public int[] sort(int[] array, int offset, int length, boolean isAsc) throws Exception {
         checkRange(array, offset, length);
         int[] arr = Arrays.copyOf(array, array.length);
         int len = offset + length;
-        return quickSort(arr, 0, len - 1);
+        return quickSort(arr, 0, len - 1, isAsc);
     }
 
-    private int[] quickSort(int[] arr, int left, int right) throws Exception {
+    private int[] quickSort(int[] arr, int left, int right, boolean isAsc) throws Exception {
         if (left < right) {
-            int pIndex = partition(arr, left, right);
-            quickSort(arr, left, pIndex - 1);
-            quickSort(arr, pIndex + 1, right);
+            int pIndex = partition(arr, left, right, isAsc);
+            quickSort(arr, left, pIndex - 1, isAsc);
+            quickSort(arr, pIndex + 1, right, isAsc);
         }
         return arr;
     }
 
-    private int partition(int[] arr, int left, int right) throws Exception {
+    private int partition(int[] arr, int left, int right, boolean isAsc) throws Exception {
         int index = left + 1;
         for (int i = index; i <= right; ++i) {
-            if (arr[i] < arr[left]) {
-                swap(arr, index, i);
-                index++;
+            if (isAsc) {
+                if (arr[i] < arr[left]) {
+                    swap(arr, index, i);
+                    index++;
+                }
+            } else {
+                if (arr[i] > arr[left]) {
+                    swap(arr, index, i);
+                    index++;
+                }
             }
         }
         if (left != index - 1) {

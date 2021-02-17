@@ -14,23 +14,42 @@ public class SelectionSort implements Sort {
         if (array == null) {
             throw new Exception("Parameter 'array' must not be null");
         }
-        return sort(array, 0, array.length);
+        return sort(array, 0, array.length, true);
+    }
+
+    @Override
+    public int[] sort(int[] array, boolean isAsc) throws Exception {
+        if (array == null) {
+            throw new Exception("Parameter 'array' must not be null");
+        }
+        return sort(array, 0, array.length, isAsc);
     }
 
     @Override
     public int[] sort(int[] array, int offset, int length) throws Exception {
+        return sort(array, offset, length, true);
+    }
+
+    @Override
+    public int[] sort(int[] array, int offset, int length, boolean isAsc) throws Exception {
         checkRange(array, offset, length);
         int[] arr = Arrays.copyOf(array, array.length);
         int len = offset + length;
         for (int i = offset; i < len; ++i) {
-            int min = i;
+            int index = i;
             for (int j = i + 1; j < len; ++j) {
-                if (arr[j] < arr[min]) {
-                    min = j;
+                if (isAsc) {
+                    if (arr[j] < arr[index]) {
+                        index = j;
+                    }
+                } else {
+                    if (arr[j] > arr[index]) {
+                        index = j;
+                    }
                 }
             }
-            if (min != i) {
-                swap(arr, i, min);
+            if (index != i) {
+                swap(arr, i, index);
             }
         }
         return arr;

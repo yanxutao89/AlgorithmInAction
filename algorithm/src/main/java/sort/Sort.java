@@ -9,7 +9,11 @@ public interface Sort {
 
     int[] sort(int[] array) throws Exception;
 
+    int[] sort(int[] array, boolean isAsc) throws Exception;
+
     int[] sort(int[] array, int offset, int length) throws Exception;
+
+    int[] sort(int[] array, int offset, int length, boolean isAsc) throws Exception;
 
     default void swap(int[] array, int left, int right) throws Exception {
         if (array == null) {
