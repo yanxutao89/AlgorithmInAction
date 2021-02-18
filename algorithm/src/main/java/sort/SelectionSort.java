@@ -35,7 +35,7 @@ public class SelectionSort implements Sort {
         checkRange(array, offset, length);
         int[] arr = Arrays.copyOf(array, array.length);
         int len = offset + length;
-        for (int i = offset; i < len; ++i) {
+        for (int i = offset; i < len - 1; ++i) {
             int index = i;
             for (int j = i + 1; j < len; ++j) {
                 if (isAsc) {

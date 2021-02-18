@@ -10,7 +10,7 @@ import java.util.Random;
  */
 public class SortBenchmark {
 
-    private static final int LENGTH = 57;
+    private static final int LENGTH = 49;
     private static final Random GENERATOR = new Random();
 
     public static void main(String[] args) throws Exception {
@@ -19,12 +19,12 @@ public class SortBenchmark {
             array[i] = GENERATOR.nextInt(LENGTH);
         }
         System.out.println(Arrays.toString(array));
-        Sort sort = new BubbleSort();
+//        Sort sort = new BubbleSort();
 //        Sort sort = new SelectionSort();
 //        Sort sort = new InsertSort();
 //        Sort sort = new ShellSort();
 //        Sort sort = new QuickSort();
-//        Sort sort = new MergeSort();
+        Sort sort = new MergeSort();
         System.out.println(Arrays.toString(sort.sort(array, true)));
         System.out.println(Arrays.toString(sort.sort(array, false)));
     }

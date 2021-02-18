@@ -46,12 +46,12 @@ public class ShellSort implements Sort {
                 int sentinel = arr[i];
                 int j = i;
                 if (isAsc) {
-                    while (j > gap - 1 && sentinel < arr[j - gap]) {
+                    while (j > gap - 1 && arr[j - gap] > sentinel) {
                         arr[j] = arr[j - gap];
                         j -= gap;
                     }
                 } else {
-                    while (j > gap - 1 && sentinel > arr[j - gap]) {
+                    while (j > gap - 1 && arr[j - gap] < sentinel) {
                         arr[j] = arr[j - gap];
                         j -= gap;
                     }

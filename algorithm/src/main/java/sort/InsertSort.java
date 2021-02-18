@@ -39,12 +39,12 @@ public class InsertSort implements Sort {
             int sentinel = arr[i];
             int j = i;
             if (isAsc) {
-                while (j > 0 && sentinel < arr[j - 1]) {
+                while (j > 0 && arr[j - 1] > sentinel) {
                     arr[j] = arr[j - 1];
                     j--;
                 }
             } else {
-                while (j > 0 && sentinel > arr[j - 1]) {
+                while (j > 0 && arr[j - 1] < sentinel) {
                     arr[j] = arr[j - 1];
                     j--;
                 }
