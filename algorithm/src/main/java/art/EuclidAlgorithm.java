@@ -1,4 +1,4 @@
-package numbers;
+package art;
 
 /**
  * Given the two positive integers m and n, find their greatest common divisor,
