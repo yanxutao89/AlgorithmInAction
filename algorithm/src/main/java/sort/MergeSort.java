@@ -34,26 +34,39 @@ public class MergeSort implements Sort {
     public int[] sort(int[] array, int offset, int length, boolean isAsc) throws Exception {
         checkRange(array, offset, length);
         int[] arr = Arrays.copyOf(array, array.length);
-        int len = offset + length;
+        int len = length - offset;
         if (len < 2) {
             return arr;
         }
         int middle = (int) Math.floor(len / 2);
-        int[] left = Arrays.copyOfRange(arr, 0, middle);
+        int[] left = Arrays.copyOfRange(arr, offset, middle);
         int[] right = Arrays.copyOfRange(arr, middle, len);
-        return merge(sort(left), sort(right));
+        return merge(sort(left), sort(right), isAsc);
     }
 
-    private int[] merge(int[] left, int[] right) {
+    private int[] merge(int[] left, int[] right, boolean isAsc) {
         int[] result = new int[left.length + right.length];
         int index = 0;
         while (left.length > 0 && right.length > 0) {
             if (left[0] <= right[0]) {
-                result[index++] = left[0];
-                left = Arrays.copyOfRange(left, 1, left.length);
-            } else {
-                result[index++] = right[0];
-                right = Arrays.copyOfRange(right, 1, right.length);
+                if (isAsc) {
+                    result[index++] = left[0];
+                    left = Arrays.copyOfRange(left, 1, left.length);
+                }
+//                else {
+//                    result[index++] = right[0];
+//                    right = Arrays.copyOfRange(right, 1, right.length);
+//                }
+            }
+            else {
+                if (isAsc) {
+                    result[index++] = right[0];
+                    right = Arrays.copyOfRange(right, 1, right.length);
+                }
+//                else {
+//                    result[index++] = left[0];
+//                    left = Arrays.copyOfRange(left, 1, left.length);
+//                }
             }
         }
 

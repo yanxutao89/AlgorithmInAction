@@ -34,8 +34,8 @@ public class QuickSort implements Sort {
     public int[] sort(int[] array, int offset, int length, boolean isAsc) throws Exception {
         checkRange(array, offset, length);
         int[] arr = Arrays.copyOf(array, array.length);
-        int len = offset + length;
-        return quickSort(arr, 0, len - 1, isAsc);
+        int len = length - offset;
+        return quickSort(arr, offset, len - 1, isAsc);
     }
 
     private int[] quickSort(int[] arr, int left, int right, boolean isAsc) throws Exception {

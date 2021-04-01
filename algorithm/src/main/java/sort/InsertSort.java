@@ -34,7 +34,7 @@ public class InsertSort implements Sort {
     public int[] sort(int[] array, int offset, int length, boolean isAsc) throws Exception {
         checkRange(array, offset, length);
         int[] arr = Arrays.copyOf(array, array.length);
-        int len = offset + length;
+        int len = length - offset;
         for (int i = offset + 1; i < len; ++i) {
             int sentinel = arr[i];
             int j = i;

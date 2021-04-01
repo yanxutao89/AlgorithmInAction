@@ -34,7 +34,7 @@ public class ShellSort implements Sort {
     public int[] sort(int[] array, int offset, int length, boolean isAsc) throws Exception {
         checkRange(array, offset, length);
         int[] arr = Arrays.copyOf(array, array.length);
-        int len = offset + length;
+        int len = length - offset;
 
         int gap = 1;
         while (gap < len) {

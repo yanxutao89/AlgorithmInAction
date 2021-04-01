@@ -34,7 +34,7 @@ public class SelectionSort implements Sort {
     public int[] sort(int[] array, int offset, int length, boolean isAsc) throws Exception {
         checkRange(array, offset, length);
         int[] arr = Arrays.copyOf(array, array.length);
-        int len = offset + length;
+        int len = length - offset;
         for (int i = offset; i < len - 1; ++i) {
             int index = i;
             for (int j = i + 1; j < len; ++j) {
