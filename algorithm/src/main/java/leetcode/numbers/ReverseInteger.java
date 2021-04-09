@@ -54,8 +54,29 @@ public class ReverseInteger {
 		return res;
 	}
 
+	/**
+	 * Runtime: 1 ms, faster than 100.00% of Java online submissions for Reverse Integer.
+	 * Memory Usage: 36 MB, less than 73.98% of Java online submissions for Reverse Integer.
+	 * @param x
+	 * @return
+	 */
+	public int reverse2(int x) {
+		long res = 0;
+		while(x != 0) {
+			int tail = x % 10;
+			long newRes = res * 10 + tail;
+			res = newRes;
+			x = x / 10;
+		}
+		if (res > Integer.MAX_VALUE || res < Integer.MIN_VALUE) {
+			return 0;
+		}
+		return (int)res;
+	}
+
 	public static void main(String[] args) {
-		int x = 123;
+		int x = 123567899;
 		System.out.println(new ReverseInteger().reverse(x));
+		System.out.println(new ReverseInteger().reverse2(x));
 	}
 }
