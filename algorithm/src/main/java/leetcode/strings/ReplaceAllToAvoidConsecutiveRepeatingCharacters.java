@@ -206,14 +206,13 @@ public class ReplaceAllToAvoidConsecutiveRepeatingCharacters {
 	 */
 	public String modifyString3(String s) {
 		char[] arr = s.toCharArray();
-		for(int i = 0; i < arr.length; ++i){
-			if(s.charAt(i) != '?') {
-				continue;
-			}
-			for(char ch = 'a'; ch <= 'z'; ++ch){
-				if(satisfies(arr, ch, i)){
-					arr[i] = ch;
-					break;
+		for(int i = 0, len = arr.length; i < len; ++i){
+			if(arr[i] == '?') {
+				for(char ch = 'a'; ch <= 'z'; ++ch){
+					if(satisfies(arr, ch, i)){
+						arr[i] = ch;
+						break;
+					}
 				}
 			}
 		}
@@ -238,11 +237,45 @@ public class ReplaceAllToAvoidConsecutiveRepeatingCharacters {
 		return arr[index + 1] != ch;
 	}
 
+	/**
+	 * Runtime: 1 ms, faster than 100.00% of Java online submissions for Replace All ?'s to Avoid Consecutive Repeating Characters.
+	 * Memory Usage: 38.8 MB, less than 72.15% of Java online submissions for Replace All ?'s to Avoid Consecutive Repeating Characters.
+	 * @param s
+	 * @return
+	 */
+	public String modifyString4(String s) {
+		if (s.length() == 1) {
+			return s.charAt(0) == '?' ? "a" : s;
+		}
+		char[] arr = s.toCharArray();
+		for(int i = 0, len = arr.length; i < len; ++i){
+			if(arr[i] == '?') {
+				if (i == 0) {
+					arr[i] = arr[1] == 'a' ? 'b' : 'a';
+				}
+				else if (i == len - 1) {
+					arr[i] = arr[len - 2] == 'a' ? 'b' : 'a';
+				}
+				else {
+					for(char ch = 'a'; ch <= 'c'; ++ch){
+						if(ch != arr[i - 1] && ch != arr[i + 1]){
+							arr[i] = ch;
+							break;
+						}
+					}
+				}
+			}
+		}
+		return new String(arr);
+
+	}
+
 	public static void main(String[] args) {
-		String s = "?w";
+		String s = "?";
 		System.out.println(new ReplaceAllToAvoidConsecutiveRepeatingCharacters().modifyString(s));
 		System.out.println(new ReplaceAllToAvoidConsecutiveRepeatingCharacters().modifyString2(s));
 		System.out.println(new ReplaceAllToAvoidConsecutiveRepeatingCharacters().modifyString3(s));
+		System.out.println(new ReplaceAllToAvoidConsecutiveRepeatingCharacters().modifyString4(s));
 	}
 
 }
