@@ -73,6 +73,96 @@ public class ReplaceAllToAvoidConsecutiveRepeatingCharacters {
 		return s;
 	}
 
+	/**
+	 * Runtime: 10 ms, faster than 5.31% of Java online submissions for Replace All ?'s to Avoid Consecutive Repeating Characters.
+	 * Memory Usage: 40.3 MB, less than 5.01% of Java online submissions for Replace All ?'s to Avoid Consecutive Repeating Characters.
+	 * @param s
+	 * @return
+	 */
+	public String modifyString2(String s) {
+		if (s.matches("^\\?+$")) {
+			StringBuilder sb = new StringBuilder();
+			for (int i = 0; i < s.length(); ++i) {
+				sb.append((i & 1) == 0 ? "a" : "b");
+			}
+			return sb.toString();
+		}
+		StringBuilder res = new StringBuilder();
+		char[] chars = s.toCharArray();
+		int offset = -1;
+		int count = -1;
+		for (int i = 0; i < chars.length; ++i) {
+			if (chars[i] == '?') {
+				offset = offset == -1 ? i : offset;
+				count = count == -1 ? 1 : ++count;
+			} else {
+				if (offset != -1 && count != -1) {
+					res.append(getStr(s, offset, count));
+					offset = -1;
+					count = -1;
+				}
+				res.append(chars[i]);
+			}
+		}
+
+		if (offset != -1 && count != -1) {
+			res.append(getStr(s, offset, count));
+		}
+
+		return res.toString();
+	}
+
+	private String getStr(String s, int offset, int count) {
+
+		StringBuilder sb = new StringBuilder(count);
+
+		if (offset == 0 && offset + count < s.length()) {
+			char r = getNearbyChar(s.charAt(count));
+			for (int i = 0; i < count; ++i) {
+				sb.append((i & 1) == 0 ? r : 'a');
+			}
+			sb = sb.reverse();
+		}
+		else if (offset + count == s.length()) {
+			char l = 'a';
+			char r = getNearbyChar(s.charAt(offset == 0 ? offset : offset - 1));
+			if (r == 'a') {
+				l = getNearbyChar(r, 'a');
+			}
+			for (int i = 0; i < count; ++i) {
+				sb.append((i & 1) == 0 ? r : l);
+			}
+		}
+		else {
+			if (count == 1) {
+				sb.append(getNearbyChar(s.charAt(offset - 1), s.charAt(offset + count)));
+			} else {
+				char l;
+				char r;
+				if (s.charAt(offset - 1) == s.charAt(offset + count)) {
+					l = getNearbyChar(s.charAt(offset - 1));
+					r = getNearbyChar(l);
+				} else {
+					l = s.charAt(offset + count);
+					r = s.charAt(offset - 1);
+				}
+				if (l == r) {
+					r = getNearbyChar(l, r);
+				}
+				boolean isEven = (count & 1) == 0;
+				count = isEven ? count : count - 1;
+				for (int i = 0; i < count; ++i) {
+					sb.append((i & 1) == 0 ? l : r);
+				}
+				if (!isEven) {
+					sb.append(getNearbyChar(l, r));
+				}
+			}
+		}
+
+		return sb.toString();
+	}
+
 	private char getNearbyChar(char c) {
 		if (c == 'a') {
 			return 'z';
@@ -108,9 +198,51 @@ public class ReplaceAllToAvoidConsecutiveRepeatingCharacters {
 		return (char) (res);
 	}
 
+	/**
+	 * Runtime: 1 ms, faster than 100.00% of Java online submissions for Replace All ?'s to Avoid Consecutive Repeating Characters.
+	 * Memory Usage: 38.7 MB, less than 85.26% of Java online submissions for Replace All ?'s to Avoid Consecutive Repeating Characters.
+	 * @param s
+	 * @return
+	 */
+	public String modifyString3(String s) {
+		char[] arr = s.toCharArray();
+		for(int i = 0; i < arr.length; ++i){
+			if(s.charAt(i) != '?') {
+				continue;
+			}
+			for(char ch = 'a'; ch <= 'z'; ++ch){
+				if(satisfies(arr, ch, i)){
+					arr[i] = ch;
+					break;
+				}
+			}
+		}
+		return new String(arr);
+	}
+
+	public boolean satisfies(char[] arr, char ch, int index){
+		return satisfiesLeft(arr, ch, index) && satisfiesRight(arr, ch, index);
+	}
+
+	public boolean satisfiesLeft(char[] arr, char ch, int index){
+		if(index == 0) {
+			return true;
+		}
+		return arr[index - 1] != ch;
+	}
+
+	public boolean satisfiesRight(char[] arr, char ch, int index){
+		if(index == arr.length - 1) {
+			return true;
+		}
+		return arr[index + 1] != ch;
+	}
+
 	public static void main(String[] args) {
-		String s = "h???";
+		String s = "?w";
 		System.out.println(new ReplaceAllToAvoidConsecutiveRepeatingCharacters().modifyString(s));
+		System.out.println(new ReplaceAllToAvoidConsecutiveRepeatingCharacters().modifyString2(s));
+		System.out.println(new ReplaceAllToAvoidConsecutiveRepeatingCharacters().modifyString3(s));
 	}
 
 }
