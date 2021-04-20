@@ -267,7 +267,6 @@ public class ReplaceAllToAvoidConsecutiveRepeatingCharacters {
 			}
 		}
 		return new String(arr);
-
 	}
 
 	public static void main(String[] args) {
