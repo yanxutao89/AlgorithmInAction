@@ -37,14 +37,14 @@ public class IsSubsequence {
      */
     public boolean isSubsequence(String s, String t) {
         char[] chars = s.toCharArray();
-        char[] chars1 = t.toCharArray();
+        char[] chart = t.toCharArray();
 
         int count = 0;
         int start = 0;
         for (int i = 0; i < chars.length; ++i) {
-            for (int j = start; j < chars1.length; ++j) {
+            for (int j = start; j < chart.length; ++j) {
                 ++start;
-                if (chars[i] == chars1[j]) {
+                if (chars[i] == chart[j]) {
                     ++count;
                     break;
                 }
