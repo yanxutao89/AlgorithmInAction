@@ -1,1 +1,1 @@
-AlogrithmInAction
+AlgorithmInAction
