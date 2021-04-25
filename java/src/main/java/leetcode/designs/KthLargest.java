@@ -67,10 +67,10 @@ public class KthLargest {
     public static void main(String[] args) {
         KthLargest kthLargest = new KthLargest(2, new int[]{0});
         System.out.println(kthLargest.add(-1));   // return 4
-        System.out.println(kthLargest.add(1));;   // return 5
-        System.out.println(kthLargest.add(-2));;  // return 5
-        System.out.println(kthLargest.add(-4));;   // return 8
-        System.out.println(kthLargest.add(4));;   // return 8
+        System.out.println(kthLargest.add(1));   // return 5
+        System.out.println(kthLargest.add(-2));  // return 5
+        System.out.println(kthLargest.add(-4));   // return 8
+        System.out.println(kthLargest.add(4));   // return 8
     }
 
 }
