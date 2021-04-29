@@ -39,38 +39,37 @@ import java.util.Arrays;
  */
 public class KthLargest {
 
-    private int kthMax;
-    private int[] arr;
+    /**
+     * Runtime: 550 ms, faster than 5.37% of Java online submissions for Kth Largest Element in a Stream.
+     * Memory Usage: 46.5 MB, less than 7.59% of Java online submissions for Kth Largest Element in a Stream.
+     */
+    private int[] data;
+    private int kth;
 
     public KthLargest(int k, int[] nums) {
-        Arrays.sort(nums);
-        arr = new int[k];
-        int i = nums.length - k;
-        int min = Math.min(nums.length, k);
-        System.arraycopy(nums, i < 0 ? 0 : i, arr, 0, min);
-        kthMax = min == 0 ? Integer.MIN_VALUE : nums[0];
+        data = new int[nums.length];
+        System.arraycopy(nums, 0, data, 0, nums.length);
+        Arrays.sort(data);
+        kth = k;
     }
 
     public int add(int val) {
-        int i = 0;
-        while (arr[i] < val && i < arr.length - 1) {
-            arr[i] = arr[i + 1];
-            ++i;
-        }
-        if (i == arr.length - 1) {
-            arr[i] = val;
-        }
-        kthMax = arr[0];
-        return kthMax;
+        int[] temp = new int[data.length];
+        System.arraycopy(data, 0, temp, 0, data.length);
+        data = new int[temp.length + 1];
+        System.arraycopy(temp, 0, data, 0, temp.length);
+        data[data.length - 1] = val;
+        Arrays.sort(data);
+        return data[data.length - kth];
     }
 
     public static void main(String[] args) {
-        KthLargest kthLargest = new KthLargest(2, new int[]{0});
-        System.out.println(kthLargest.add(-1));   // return 4
-        System.out.println(kthLargest.add(1));   // return 5
-        System.out.println(kthLargest.add(-2));  // return 5
-        System.out.println(kthLargest.add(-4));   // return 8
-        System.out.println(kthLargest.add(4));   // return 8
+        KthLargest kthLargest = new KthLargest(3, new int[]{4, 5, 8, 2});
+        System.out.println(kthLargest.add(3)); // return 4
+        System.out.println(kthLargest.add(5)); // return 5
+        System.out.println(kthLargest.add(10)); // return 5
+        System.out.println(kthLargest.add(9)); // return 8
+        System.out.println(kthLargest.add(4)); // return 8
     }
 
 }
