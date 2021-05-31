@@ -40,28 +40,59 @@ import java.util.Arrays;
 public class KthLargest {
 
     /**
-     * Runtime: 550 ms, faster than 5.37% of Java online submissions for Kth Largest Element in a Stream.
-     * Memory Usage: 46.5 MB, less than 7.59% of Java online submissions for Kth Largest Element in a Stream.
+     * Runtime: 69 ms, faster than 11.49% of Java online submissions for Kth Largest Element in a Stream.
+     * Memory Usage: 43 MB, less than 90.38% of Java online submissions for Kth Largest Element in a Stream.
      */
     private int[] data;
-    private int kth;
 
     public KthLargest(int k, int[] nums) {
-        data = new int[nums.length];
-        System.arraycopy(nums, 0, data, 0, nums.length);
+        data = new int[k];
+        int len = Math.min(nums.length, k);
+        Arrays.sort(nums);
+        System.arraycopy(nums, nums.length - len, data, 0, len);
+        for (int i = len; i < k; ++i) {
+            data[i] = Integer.MIN_VALUE;
+        }
         Arrays.sort(data);
-        kth = k;
     }
 
     public int add(int val) {
-        int[] temp = new int[data.length];
-        System.arraycopy(data, 0, temp, 0, data.length);
-        data = new int[temp.length + 1];
-        System.arraycopy(temp, 0, data, 0, temp.length);
-        data[data.length - 1] = val;
-        Arrays.sort(data);
-        return data[data.length - kth];
+        int i = 0;
+        while (i < data.length && val > data[i]) {
+            i++;
+        }
+        for (int j = 0; j < i - 1; ++j) {
+            data[j] = data[j + 1];
+        }
+        if (i > 0) {
+            data[i - 1] = val;
+        }
+        return data[0];
     }
+
+    /**
+     * Runtime: 550 ms, faster than 5.37% of Java online submissions for Kth Largest Element in a Stream.
+     * Memory Usage: 46.5 MB, less than 7.59% of Java online submissions for Kth Largest Element in a Stream.
+     */
+//    private int[] data;
+//    private int kth;
+//
+//    public KthLargest(int k, int[] nums) {
+//        data = new int[nums.length];
+//        System.arraycopy(nums, 0, data, 0, nums.length);
+//        Arrays.sort(data);
+//        kth = k;
+//    }
+//
+//    public int add(int val) {
+//        int[] temp = new int[data.length];
+//        System.arraycopy(data, 0, temp, 0, data.length);
+//        data = new int[temp.length + 1];
+//        System.arraycopy(temp, 0, data, 0, temp.length);
+//        data[data.length - 1] = val;
+//        Arrays.sort(data);
+//        return data[data.length - kth];
+//    }
 
     public static void main(String[] args) {
         KthLargest kthLargest = new KthLargest(3, new int[]{4, 5, 8, 2});
