@@ -97,7 +97,7 @@ public class TreeUtils {
               continue;
             }
 
-            output += String.valueOf(node.val) + ", ";
+            output += node.val + ", ";
             nodeQueue.add(node.getLeft());
             nodeQueue.add(node.getRight());
         }
