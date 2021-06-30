@@ -7,8 +7,7 @@ import java.util.Arrays;
  * @Desc:
  * @Date: 2021/2/10 16:09
  */
-public class BubbleSort implements Sort {
-
+public class ShellSorter implements Sorter {
     @Override
     public int[] sort(int[] array) throws Exception {
         if (array == null) {
@@ -35,26 +34,34 @@ public class BubbleSort implements Sort {
         checkRange(array, offset, length);
         int[] arr = Arrays.copyOf(array, array.length);
         int len = length - offset;
-        for (int i = offset + 1; i < len; ++i) {
-            boolean isSorted = true;
-            for (int j = offset; j < len - i; ++j) {
+
+        int gap = 1;
+        while (gap < len) {
+            gap = gap * 3 + 1;
+        }
+
+        while (gap > 0) {
+            for (int i = gap; i < len; ++i) {
+                int sentinel = arr[i];
+                int j = i;
                 if (isAsc) {
-                    if (arr[j] > arr[j + 1]) {
-                        swap(arr, j, j + 1);
-                        isSorted = false;
-                    }
-                } else {
-                    if (arr[j] < arr[j + 1]) {
-                        swap(arr, j, j + 1);
-                        isSorted = false;
+                    while (j > gap - 1 && sentinel < arr[j - gap]) {
+                        arr[j] = arr[j - gap];
+                        j -= gap;
                     }
                 }
+                else {
+                    while (j > gap - 1 && sentinel > arr[j - gap]) {
+                        arr[j] = arr[j - gap];
+                        j -= gap;
+                    }
+                }
+                if (j != i) {
+                    arr[j] = sentinel;
+                }
             }
-            if (isSorted) {
-                break;
-            }
+            gap = (int) Math.floor(gap / 3);
         }
         return arr;
     }
-
 }

@@ -7,8 +7,7 @@ import java.util.Arrays;
  * @Desc:
  * @Date: 2021/2/10 16:09
  */
-public class SelectionSort implements Sort {
-
+public class BubbleSorter implements Sorter {
     @Override
     public int[] sort(int[] array) throws Exception {
         if (array == null) {
@@ -35,24 +34,26 @@ public class SelectionSort implements Sort {
         checkRange(array, offset, length);
         int[] arr = Arrays.copyOf(array, array.length);
         int len = length - offset;
-        for (int i = offset; i < len - 1; ++i) {
-            int index = i;
-            for (int j = i + 1; j < len; ++j) {
+        for (int i = offset + 1; i < len; ++i) {
+            boolean isSorted = true;
+            for (int j = offset; j < len - i; ++j) {
                 if (isAsc) {
-                    if (arr[j] < arr[index]) {
-                        index = j;
+                    if (arr[j] > arr[j + 1]) {
+                        swap(arr, j, j + 1);
+                        isSorted = false;
                     }
-                } else {
-                    if (arr[j] > arr[index]) {
-                        index = j;
+                }
+                else {
+                    if (arr[j] < arr[j + 1]) {
+                        swap(arr, j, j + 1);
+                        isSorted = false;
                     }
                 }
             }
-            if (index != i) {
-                swap(arr, i, index);
+            if (isSorted) {
+                break;
             }
         }
         return arr;
     }
-
 }

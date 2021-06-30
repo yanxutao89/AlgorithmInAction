@@ -7,8 +7,7 @@ import java.util.Arrays;
  * @Desc:
  * @Date: 2021/2/10 16:09
  */
-public class RadixSort implements Sort {
-
+public class RadixSorter implements Sorter {
     @Override
     public int[] sort(int[] array) throws Exception {
         if (array == null) {
@@ -34,14 +33,13 @@ public class RadixSort implements Sort {
     public int[] sort(int[] array, int offset, int length, boolean isAsc) throws Exception {
         checkRange(array, offset, length);
         int[] arr = Arrays.copyOf(array, array.length);
-        int len = offset + length;
         int maxDigit = getMaxDigit(arr);
-        return radixSort(arr, maxDigit);
+        return radixSort(arr, maxDigit, isAsc);
     }
 
     private int getMaxDigit(int[] arr) {
         int maxValue = getMaxValue(arr);
-        return getNumLenght(maxValue);
+        return getNumLength(maxValue);
     }
 
     private int getMaxValue(int[] arr) {
@@ -54,33 +52,43 @@ public class RadixSort implements Sort {
         return maxValue;
     }
 
-    protected int getNumLenght(long num) {
+    protected int getNumLength(long num) {
         if (num == 0) {
             return 1;
         }
-        int lenght = 0;
+        int length = 0;
         for (long temp = num; temp != 0; temp /= 10) {
-            lenght++;
+            ++length;
         }
-        return lenght;
+        return length;
     }
 
-    private int[] radixSort(int[] arr, int maxDigit) {
+    private int[] radixSort(int[] arr, int maxDigit, boolean isAsc) {
         int mod = 10;
         int dev = 1;
 
-        for (int i = 0; i < maxDigit; i++, dev *= 10, mod *= 10) {
-            int[][] counter = new int[mod * 2][0];
-
-            for (int j = 0; j < arr.length; j++) {
+        for (int i = 0; i < maxDigit; ++i, dev *= 10, mod *= 10) {
+            int[][] buckets = new int[mod * 2][0];
+            for (int j = 0; j < arr.length; ++j) {
                 int bucket = ((arr[j] % mod) / dev) + mod;
-                counter[bucket] = arrayAppend(counter[bucket], arr[j]);
+                buckets[bucket] = arrayAppend(buckets[bucket], arr[j]);
             }
 
-            int pos = 0;
-            for (int[] bucket : counter) {
-                for (int value : bucket) {
-                    arr[pos++] = value;
+            int sortIndex = 0;
+            if (isAsc) {
+                for (int j = 0; j < buckets.length; ++j) {
+                    int[] bucket = buckets[j];
+                    for (int value : bucket) {
+                        arr[sortIndex++] = value;
+                    }
+                }
+            }
+            else {
+                for (int j = buckets.length - 1; j > -1; --j) {
+                    int[] bucket = buckets[j];
+                    for (int value : bucket) {
+                        arr[sortIndex++] = value;
+                    }
                 }
             }
         }
@@ -93,5 +101,4 @@ public class RadixSort implements Sort {
         arr[arr.length - 1] = value;
         return arr;
     }
-
 }

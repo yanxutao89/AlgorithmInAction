@@ -7,8 +7,7 @@ import java.util.Arrays;
  * @Desc:
  * @Date: 2021/2/10 16:09
  */
-public class ShellSort implements Sort {
-
+public class InsertSorter implements Sorter {
     @Override
     public int[] sort(int[] array) throws Exception {
         if (array == null) {
@@ -35,34 +34,25 @@ public class ShellSort implements Sort {
         checkRange(array, offset, length);
         int[] arr = Arrays.copyOf(array, array.length);
         int len = length - offset;
-
-        int gap = 1;
-        while (gap < len) {
-            gap = gap * 3 + 1;
-        }
-
-        while (gap > 0) {
-            for (int i = gap; i < len; ++i) {
-                int sentinel = arr[i];
-                int j = i;
-                if (isAsc) {
-                    while (j > gap - 1 && arr[j - gap] > sentinel) {
-                        arr[j] = arr[j - gap];
-                        j -= gap;
-                    }
-                } else {
-                    while (j > gap - 1 && arr[j - gap] < sentinel) {
-                        arr[j] = arr[j - gap];
-                        j -= gap;
-                    }
-                }
-                if (j != i) {
-                    arr[j] = sentinel;
+        for (int i = offset + 1; i < len; ++i) {
+            int sentinel = arr[i];
+            int j = i;
+            if (isAsc) {
+                while (j > 0 && sentinel < arr[j - 1]) {
+                    arr[j] = arr[j - 1];
+                    --j;
                 }
             }
-            gap = (int) Math.floor(gap / 3);
+            else {
+                while (j > 0 && sentinel > arr[j - 1]) {
+                    arr[j] = arr[j - 1];
+                    --j;
+                }
+            }
+            if (j != i) {
+                arr[j] = sentinel;
+            }
         }
         return arr;
     }
-
 }

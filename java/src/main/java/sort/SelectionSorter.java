@@ -7,8 +7,7 @@ import java.util.Arrays;
  * @Desc:
  * @Date: 2021/2/10 16:09
  */
-public class HeapSort implements Sort {
-
+public class SelectionSorter implements Sorter {
     @Override
     public int[] sort(int[] array) throws Exception {
         if (array == null) {
@@ -34,40 +33,25 @@ public class HeapSort implements Sort {
     public int[] sort(int[] array, int offset, int length, boolean isAsc) throws Exception {
         checkRange(array, offset, length);
         int[] arr = Arrays.copyOf(array, array.length);
-        int len = offset + length;
-        buildMaxHeap(arr, len);
-
-        for (int i = len - 1; i > 0; i--) {
-            swap(arr, 0, i);
-            len--;
-            heapify(arr, 0, len);
+        int len = length - offset;
+        for (int i = offset; i < len - 1; ++i) {
+            int index = i;
+            for (int j = i + 1; j < len; ++j) {
+                if (isAsc) {
+                    if (arr[j] < arr[index]) {
+                        index = j;
+                    }
+                }
+                else {
+                    if (arr[j] > arr[index]) {
+                        index = j;
+                    }
+                }
+            }
+            if (index != i) {
+                swap(arr, i, index);
+            }
         }
         return arr;
     }
-
-    private void buildMaxHeap(int[] arr, int len) throws Exception {
-        for (int i = (int) Math.floor(len / 2); i >= 0; i--) {
-            heapify(arr, i, len);
-        }
-    }
-
-    private void heapify(int[] arr, int i, int len) throws Exception {
-        int left = 2 * i + 1;
-        int right = 2 * i + 2;
-        int largest = i;
-
-        if (left < len && arr[left] > arr[largest]) {
-            largest = left;
-        }
-
-        if (right < len && arr[right] > arr[largest]) {
-            largest = right;
-        }
-
-        if (largest != i) {
-            swap(arr, i, largest);
-            heapify(arr, largest, len);
-        }
-    }
-
 }

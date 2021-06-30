@@ -7,8 +7,7 @@ import java.util.Arrays;
  * @Desc:
  * @Date: 2021/2/10 16:09
  */
-public class QuickSort implements Sort {
-
+public class QuickSorter implements Sorter {
     @Override
     public int[] sort(int[] array) throws Exception {
         if (array == null) {
@@ -40,9 +39,9 @@ public class QuickSort implements Sort {
 
     private int[] quickSort(int[] arr, int left, int right, boolean isAsc) throws Exception {
         if (left < right) {
-            int pIndex = partition(arr, left, right, isAsc);
-            quickSort(arr, left, pIndex - 1, isAsc);
-            quickSort(arr, pIndex + 1, right, isAsc);
+            int pos = partition(arr, left, right, isAsc);
+            quickSort(arr, left, pos - 1, isAsc);
+            quickSort(arr, pos + 1, right, isAsc);
         }
         return arr;
     }
@@ -53,12 +52,13 @@ public class QuickSort implements Sort {
             if (isAsc) {
                 if (arr[i] < arr[left]) {
                     swap(arr, index, i);
-                    index++;
+                    ++index;
                 }
-            } else {
+            }
+            else {
                 if (arr[i] > arr[left]) {
                     swap(arr, index, i);
-                    index++;
+                    ++index;
                 }
             }
         }
@@ -67,5 +67,4 @@ public class QuickSort implements Sort {
         }
         return index - 1;
     }
-
 }

@@ -5,8 +5,7 @@ package sort;
  * @Desc:
  * @Date: 2021/2/10 16:08
  */
-public interface Sort {
-
+public interface Sorter {
     int[] sort(int[] array) throws Exception;
 
     int[] sort(int[] array, boolean isAsc) throws Exception;
