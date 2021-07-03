@@ -12,11 +12,12 @@ public class TrieNodeUtils {
         for (char c : chars) {
             Map<Object, TrieNode> children = node.getChildren();
             if (children.get(c) == null) {
-                children.put(c, new TrieNode());
+                TrieNode trieNode = new TrieNode();
+                trieNode.setObject(c);
+                children.put(c, trieNode);
             }
             node = children.get(c);
         }
-        node.setObject(word);
         node.setWord(true);
     }
 
@@ -44,5 +45,4 @@ public class TrieNodeUtils {
         }
         return dfs(children.get(objects[index]), objects, index + 1);
     }
-
 }
