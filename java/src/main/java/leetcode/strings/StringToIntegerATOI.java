@@ -91,6 +91,12 @@ package leetcode.strings;
  */
 public class StringToIntegerATOI {
 
+    /**
+     * Runtime: 3 ms, faster than 36.86% of Java online submissions for String to Integer (atoi).
+     * Memory Usage: 38.9 MB, less than 63.03% of Java online submissions for String to Integer (atoi).
+     * @param s
+     * @return
+     */
     public int myAtoi(String s) {
         s = s.trim();
         if (s.length() == 0) {
@@ -98,7 +104,7 @@ public class StringToIntegerATOI {
         }
         char[] chars = s.toCharArray();
         boolean isPositive;
-        if ((chars[0] > '0' && chars[0] < '9') || chars[0] == '+' || chars[0] == '-') {
+        if ((chars[0] >= '0' && chars[0] <= '9') || chars[0] == '+' || chars[0] == '-') {
             isPositive = chars[0] == '-' ? false : true;
         }
         else {
@@ -107,7 +113,7 @@ public class StringToIntegerATOI {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < chars.length; ++i) {
             char c = chars[i];
-            if ((c > '0' && c < '9') || c == '.') {
+            if ((c >= '0' && c <= '9') || c == '.') {
                 sb.append(c);
             }
             else {
@@ -124,10 +130,9 @@ public class StringToIntegerATOI {
         if (str.length() == 0) {
             return 0;
         }
-
-        String[] strings = str.split(".");
-        if (strings.length == 1) {
-            return str2Num(strings[0], isPositive, !str.startsWith("."));
+        String[] strings = str.split("\\.");
+        if (strings.length > 0) {
+            return str2Num(strings[0], isPositive, true);
         }
 
         return 0;
@@ -136,24 +141,26 @@ public class StringToIntegerATOI {
     private int str2Num(String str, boolean isPositive, boolean isLeft) {
         char[] chars = str.toCharArray();
         double num = 0;
+        int length = chars.length;
         if (isLeft) {
-            for (int i = chars.length - 1; i > -1; --i) {
-                num += (int)chars[i] * Math.pow(10, i);
-                num = isPositive ? num : -num;
-                if (isPositive && num > Integer.MAX_VALUE) {
-                    return Integer.MAX_VALUE;
-                }
-                if (!isPositive && num < Integer.MIN_VALUE) {
-                    return Integer.MIN_VALUE;
+            for (int i = length - 1; i > -1; --i) {
+                double val = ((int) chars[i] - 48) * Math.pow(10, length - 1 - i);
+                num += isPositive ? val : -val;
+                if (length > 10) {
+                    if (isPositive && num > Integer.MAX_VALUE) {
+                        return Integer.MAX_VALUE;
+                    }
+                    if (!isPositive && num < Integer.MIN_VALUE) {
+                        return Integer.MIN_VALUE;
+                    }
                 }
             }
         }
-
         return (int)num;
     }
 
     public static void main(String[] args){
-        String str = "-42";
+        String str = "3.14153";
         System.out.println(new StringToIntegerATOI().myAtoi(str));
     }
 }
