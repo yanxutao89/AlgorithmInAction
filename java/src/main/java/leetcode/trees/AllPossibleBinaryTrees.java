@@ -1,6 +1,8 @@
-package trees;
+package leetcode.trees;
 
-import beans.TreeNode;
+
+import leetcode.beans.TreeNode;
+import leetcode.utils.TreeUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;

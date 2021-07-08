@@ -1,7 +1,8 @@
-package others;
+package leetcode.others;
 
-import beans.TreeNode;
-import utils.TreeUtils;
+
+import leetcode.beans.TreeNode;
+import leetcode.utils.TreeUtils;
 
 /*For a binary tree T, we can define a flip operation as follows: choose any node, and swap the left and right child subtrees.
 

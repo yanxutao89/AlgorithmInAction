@@ -1,10 +1,11 @@
-package others;
+package leetcode.others;
+
+import leetcode.beans.TreeNode;
+import leetcode.utils.TreeUtils;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
-import beans.TreeNode;
-import utils.TreeUtils;
 
 public class RangeSumOfBST {
 

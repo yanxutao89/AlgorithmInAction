@@ -1,10 +1,11 @@
-package others;
+package leetcode.others;
+
+import leetcode.beans.Node;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-import beans.Node;
 
 /*Given a n-ary tree, find its maximum depth.
 

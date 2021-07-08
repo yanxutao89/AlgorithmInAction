@@ -1,4 +1,4 @@
-package beans;
+package leetcode.beans;
 
 public class TreeNode {
 	public Integer val;

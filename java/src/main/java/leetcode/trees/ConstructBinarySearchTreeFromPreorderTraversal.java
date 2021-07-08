@@ -1,10 +1,11 @@
-package trees;
+package leetcode.trees;
+
+import leetcode.beans.TreeNode;
+import leetcode.utils.TreeUtils;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
-import beans.TreeNode;
-import utils.TreeUtils;
 
 /**
  * Return the root node of a binary search tree that matches the given preorder traversal.

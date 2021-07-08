@@ -1,11 +1,12 @@
-package trees;
+package leetcode.trees;
+
+import leetcode.beans.TreeNode;
+import leetcode.utils.TreeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-import beans.TreeNode;
-import utils.TreeUtils;
 
 /**
  * Given the root of a binary tree, return the inorder traversal of its nodes' values.

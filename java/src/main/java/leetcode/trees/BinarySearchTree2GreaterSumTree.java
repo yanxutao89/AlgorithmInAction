@@ -1,7 +1,8 @@
-package trees;
+package leetcode.trees;
 
-import beans.TreeNode;
-import utils.TreeUtils;
+
+import leetcode.beans.TreeNode;
+import leetcode.utils.TreeUtils;
 
 /**
  * Given the root of a binary search tree with distinct values, modify it so that

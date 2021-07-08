@@ -1,7 +1,8 @@
-package others;
+package leetcode.others;
 
-import beans.TreeNode;
-import utils.TreeUtils;
+
+import leetcode.beans.TreeNode;
+import leetcode.utils.TreeUtils;
 
 /*Given a binary tree rooted at root, the depth of each node is the shortest distance to the root.
 

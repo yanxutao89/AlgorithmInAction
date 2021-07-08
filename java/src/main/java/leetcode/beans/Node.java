@@ -1,4 +1,4 @@
-package beans;
+package leetcode.beans;
 
 import java.util.List;
 

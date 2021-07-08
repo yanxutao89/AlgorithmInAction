@@ -1,12 +1,13 @@
-package others;
+package leetcode.others;
+
+import leetcode.beans.TreeNode;
+import leetcode.utils.TreeUtils;
 
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Set;
 
-import beans.TreeNode;
-import utils.TreeUtils;
 
 /*A binary tree is univalued if every node in the tree has the same value.
 

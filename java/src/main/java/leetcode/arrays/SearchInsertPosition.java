@@ -83,29 +83,57 @@ public class SearchInsertPosition {
         }
     }
 
+    /**
+     * Runtime: 0 ms, faster than 100.00% of Java online submissions for Search Insert Position.
+     * Memory Usage: 38.6 MB, less than 48.17% of Java online submissions for Search Insert Position.
+     * @param nums
+     * @param target
+     * @return
+     */
     public int searchInsert2(int[] nums, int target) {
-        int left = 0;
-        int right = nums.length - 1;
-        int mid = 0;
-        while (right - left > 1) {
-            mid = (left + right) >> 1;
-            if (target < nums[mid]) {
-                right = mid;
+        if (target < nums[0]) {
+            return 0;
+        }
+        if (target > nums[nums.length - 1]) {
+            return nums.length;
+        }
+        for (int i = 0; i < nums.length - 1; ++i) {
+            if (target >= nums[i] && target <= nums[i + 1]) {
+                return i + 1;
             }
-            else if (target > nums[mid]){
-                left = mid;
+        }
+        return 0;
+    }
+
+    /**
+     * Runtime: 0 ms, faster than 100.00% of Java online submissions for Search Insert Position.
+     * Memory Usage: 38.7 MB, less than 35.86% of Java online submissions for Search Insert Position.
+     * @param nums
+     * @param target
+     * @return
+     */
+    public int searchInsert3(int[] nums, int target) {
+        int left = 0, mid, right = nums.length - 1;
+        while (left <= right) {
+            mid = (left + right) >> 1;
+            if (target > nums[mid]) {
+                left = mid + 1;
+            }
+            else if (target < nums[mid]) {
+                right = mid - 1;
             }
             else {
                 return mid;
             }
         }
-        return target > nums[mid] ? mid + 1 : mid;
+        return left;
     }
 
     public static void main(String[] args) {
-        int[] nums = new int[]{1, 3, 5};
+        int[] nums = new int[]{1};
         int target = 0;
         System.out.println(new SearchInsertPosition().searchInsert(nums, target));
         System.out.println(new SearchInsertPosition().searchInsert2(nums, target));
+        System.out.println(new SearchInsertPosition().searchInsert3(nums, target));
     }
 }

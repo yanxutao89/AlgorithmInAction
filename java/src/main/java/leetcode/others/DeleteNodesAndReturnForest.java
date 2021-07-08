@@ -1,12 +1,13 @@
-package others;
+package leetcode.others;
+
+
+import leetcode.beans.TreeNode;
+import leetcode.utils.TreeUtils;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import beans.TreeNode;
-import utils.TreeUtils;
 
 /*Given the root of a binary tree, each node in the tree has a distinct value.
 

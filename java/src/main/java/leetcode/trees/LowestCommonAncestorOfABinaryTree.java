@@ -1,7 +1,8 @@
 package leetcode.trees;
 
-import beans.TreeNode;
-import utils.TreeUtils;
+
+import leetcode.beans.TreeNode;
+import leetcode.utils.TreeUtils;
 
 import java.util.*;
 

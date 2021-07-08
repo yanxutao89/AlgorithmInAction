@@ -1,7 +1,8 @@
-package others;
+package leetcode.others;
 
-import beans.TreeNode;
-import utils.TreeUtils;
+
+import leetcode.beans.TreeNode;
+import leetcode.utils.TreeUtils;
 
 /*Given a binary search tree, rearrange the tree in in-order so that the leftmost node in the tree is now the root of the tree, and every node has no left child and only 1 right child.
 

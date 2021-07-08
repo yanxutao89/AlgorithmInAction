@@ -1,9 +1,10 @@
-package others;
+package leetcode.others;
+
+import leetcode.beans.TreeNode;
+import leetcode.utils.TreeUtils;
 
 import java.util.Date;
 
-import beans.TreeNode;
-import utils.TreeUtils;
 
 /*
 Given the root of a binary tree with N nodes, each node in the tree has node.val coins, and there are N coins total.

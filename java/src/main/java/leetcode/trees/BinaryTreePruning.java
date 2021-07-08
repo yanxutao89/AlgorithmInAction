@@ -1,7 +1,8 @@
-package trees;
+package leetcode.trees;
 
-import beans.TreeNode;
-import utils.TreeUtils;
+
+import leetcode.beans.TreeNode;
+import leetcode.utils.TreeUtils;
 
 /**
  * We are given the head node root of a binary tree, where additionally every node's value is either a 0 or a 1.

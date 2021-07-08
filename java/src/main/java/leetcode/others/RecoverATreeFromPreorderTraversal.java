@@ -1,4 +1,7 @@
-package others;
+package leetcode.others;
+
+import leetcode.beans.TreeNode;
+import leetcode.utils.TreeUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,8 +9,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import beans.TreeNode;
-import utils.TreeUtils;
 
 /*We run a preorder depth first search on the root of a binary tree.
 

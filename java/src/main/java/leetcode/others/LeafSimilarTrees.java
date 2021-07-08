@@ -1,10 +1,11 @@
-package others;
+package leetcode.others;
+
+import leetcode.beans.TreeNode;
+import leetcode.utils.TreeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import beans.TreeNode;
-import utils.TreeUtils;
 
 /*Consider all the leaves of a binary tree.  From left to right order, the values of those leaves form a leaf value sequence.
 

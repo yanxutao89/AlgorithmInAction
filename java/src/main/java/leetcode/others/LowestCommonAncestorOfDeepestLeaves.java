@@ -1,7 +1,8 @@
-package others;
+package leetcode.others;
 
-import beans.TreeNode;
-import utils.TreeUtils;
+
+import leetcode.beans.TreeNode;
+import leetcode.utils.TreeUtils;
 
 /*Given a rooted binary tree, return the lowest common ancestor of its deepest leaves.
 

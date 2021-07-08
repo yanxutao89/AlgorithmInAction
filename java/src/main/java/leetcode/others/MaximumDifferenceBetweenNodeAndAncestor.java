@@ -1,10 +1,12 @@
-package others;
+package leetcode.others;
+
+
+import leetcode.beans.TreeNode;
+import leetcode.utils.TreeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import beans.TreeNode;
-import utils.TreeUtils;
 
 /*Given the root of a binary tree, find the maximum value V for which there exists different nodes A and B where V = |A.val - B.val| and A is an ancestor of B.
 

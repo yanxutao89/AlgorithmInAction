@@ -1,10 +1,11 @@
-package others;
+package leetcode.others;
+
+import leetcode.beans.Node;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-import beans.Node;
 
 public class NaryTreePostorderTraversal {
 

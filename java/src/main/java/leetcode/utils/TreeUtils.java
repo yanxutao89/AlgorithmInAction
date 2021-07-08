@@ -1,9 +1,10 @@
-package utils;
+package leetcode.utils;
+
+import leetcode.beans.TreeNode;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
-import beans.TreeNode;
 
 public class TreeUtils {
 

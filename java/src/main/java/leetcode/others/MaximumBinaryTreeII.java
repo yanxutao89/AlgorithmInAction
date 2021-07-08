@@ -1,7 +1,8 @@
-package others;
+package leetcode.others;
 
-import beans.TreeNode;
-import utils.TreeUtils;
+
+import leetcode.beans.TreeNode;
+import leetcode.utils.TreeUtils;
 
 /*
 We are given the root node of a maximum tree: a tree where every node has a value greater than any other value in its subtree.
